@@ -21,4 +21,4 @@ for item in news_links:
     st.markdown(f"**[{item['name']}]({item['url']})** — *{item['type']}*")
 
 st.markdown("---")
-st.write("*(Simple directory format)*")
+st.write("*(July 2026)*")
