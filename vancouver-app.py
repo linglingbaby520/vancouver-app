@@ -1,11 +1,34 @@
 import streamlit as st
 
-st.title("Welcome to Vancouver 🇨🇦")
-st.write("An incredible view of the city and mountains.")
+st.title("Vancouver Explorer 🇨🇦")
+st.write("Click the button to explore different iconic views of the city!")
 
-# Using a stable public image link for Vancouver
-image_url = "https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&w=1200&q=80"
+# A list of stunning Vancouver image links
+vancouver_images = [
+    {
+        "url": "https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&w=1200&q=80",
+        "caption": "Vancouver Skyline and North Shore Mountains"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80",
+        "caption": "Gastown Steam Clock Area"
+    },
+    {
+        "url": "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=1200&q=80",
+        "caption": "Lions Gate Bridge and Stanley Park"
+    }
+]
 
-st.image(image_url, caption="Vancouver, BC skyline")
+# Track which image we are looking at in session state
+if "img_index" not in st.session_state:
+    st.session_state.img_index = 0
 
-st.write("This is just the start! What else do you want to put on this page?")
+# Button to cycle to the next image
+if st.button("Show Another View 📸"):
+    st.session_state.img_index = (st.session_state.img_index + 1) % len(vancouver_images)
+
+# Get the current image details
+current_image = vancouver_images[st.session_state.img_index]
+
+# Display the image and caption
+st.image(current_image["url"], caption=current_image["caption"])
