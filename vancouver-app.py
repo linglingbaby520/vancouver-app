@@ -1,34 +1,47 @@
 import streamlit as st
 
-st.title("Vancouver Explorer 🇨🇦")
-st.write("Click the button to explore different iconic views of the city!")
+st.title("📢 BC & Vancouver News Hub")
+st.write("Your quick directory for local media channels, TV news, newspapers, and digital outlets.")
 
-# A list of stunning Vancouver image links
-vancouver_images = [
+# List of media channels with categories, images, and links
+media_channels = [
     {
-        "url": "https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&w=1200&q=80",
-        "caption": "Vancouver Skyline and North Shore Mountains"
+        "name": "CTV News Vancouver",
+        "type": "TV / Broadcast",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/CTV_News_Channel_%28Canada%29_logo.svg/250px-CTV_News_Channel_%28Canada%29_logo.svg.png",
+        "url": "https://bc.ctvnews.ca/"
     },
     {
-        "url": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80",
-        "caption": "Gastown Steam Clock Area"
+        "name": "Richmond News",
+        "type": "Newspaper",
+        "image": "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=600&q=80",
+        "url": "https://www.richmond-news.com/"
     },
     {
-        "url": "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=1200&q=80",
-        "caption": "Lions Gate Bridge and Stanley Park"
+        "name": "604 Now",
+        "type": "Digital Media",
+        "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80",
+        "url": "https://604now.com/"
+    },
+    {
+        "name": "Global News BC",
+        "type": "TV / YouTube",
+        "image": "https://images.unsplash.com/photo-1495020689067-958ab52e3367?auto=format&fit=crop&w=600&q=80",
+        "url": "https://globalnews.ca/bc/"
     }
 ]
 
-# Track which image we are looking at in session state
-if "img_index" not in st.session_state:
-    st.session_state.img_index = 0
-
-# Button to cycle to the next image
-if st.button("Show Another View 📸"):
-    st.session_state.img_index = (st.session_state.img_index + 1) % len(vancouver_images)
-
-# Get the current image details
-current_image = vancouver_images[st.session_state.img_index]
-
-# Display the image and caption
-st.image(current_image["url"], caption=current_image["caption"])
+# Display channels in an organized layout
+for channel in media_channels:
+    with st.container():
+        col1, col2 = st.columns([1, 2])
+        
+        with col1:
+            st.image(channel["image"], width=180)
+            
+        with col2:
+            st.subheader(channel["name"])
+            st.markdown(f"**Category:** {channel['type']}")
+            st.markdown(f"[Visit Website / Feed]({channel['url']})")
+            
+        st.divider()
